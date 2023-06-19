@@ -1,0 +1,9 @@
+.home-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.welcome {
+  flex-direction: column;
+}
