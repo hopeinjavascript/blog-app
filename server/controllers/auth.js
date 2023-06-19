@@ -1,18 +1,24 @@
 import authServices from '../services/auth.js';
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
+  res.serviceName = 'login';
   try {
-    return authServices.login(req, res, next);
+    await authServices.login(req, res);
+    next();
   } catch (error) {
     console.error(error);
+    next(error);
   }
 };
 
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
+  res.serviceName = 'signup';
   try {
-    return authServices.signup(req, res, next);
+    await authServices.signup(req, res);
+    next();
   } catch (error) {
     console.error(error);
+    next(error);
   }
 };
 
