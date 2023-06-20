@@ -17,7 +17,7 @@ const login = async (req, res) => {
     throwError('Invalid credentials', HTTP_STATUS_CODES.UNAUTHORIZED);
 
   //secret key is generated using crypto.randomBytes(30).toString('hex');
-  const jwtPayload = { email };
+  const jwtPayload = { email, id: user._doc._id };
   const accessToken = createToken(jwtPayload, 'access');
 
   if (!accessToken) throwError('Error while signing the token');

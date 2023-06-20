@@ -1,8 +1,6 @@
-import jwt from 'jsonwebtoken';
 import HTTP_STATUS_CODES from '../constants/httpStatusCodes.js';
-import { verifyToken } from '../helpers/controller.js';
-import genericHelpers from '../helpers/generic.js';
-const { throwError } = genericHelpers;
+import { verifyToken } from '../helpers/auth.js';
+import { throwError } from '../helpers/generic.js';
 
 function err() {
   throwError('Auth: you are not authorized!', HTTP_STATUS_CODES.FORBIDDEN);

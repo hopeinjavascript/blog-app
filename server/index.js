@@ -9,10 +9,13 @@ const app = express();
 import cors from 'cors';
 
 import authRouter from './routes/auth.js';
+import articlesRouter from './routes/articles.js';
 
 import responseHandler from './middlewares/responseHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import initDB from './connections/mongoose.js';
+
+import requestLogger from './middlewares/requestLogger.js';
 
 // test route
 app.get('/', (req, res) => {
@@ -22,7 +25,9 @@ app.get('/', (req, res) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.static('images')); //http://localhost:5000/default/avatar.jpg
+app.use(requestLogger);
 app.use('/auth', authRouter);
+app.use('/blogs', articlesRouter);
 app.use(responseHandler);
 app.use(errorHandler);
 
