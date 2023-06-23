@@ -8,6 +8,8 @@ const app = express();
 
 import cors from 'cors';
 
+import fileUpload from 'express-fileupload';
+
 import authRouter from './routes/auth.js';
 import articlesRouter from './routes/articles.js';
 
@@ -26,6 +28,7 @@ console.log(process.env.BASE_ROUTE);
 
 app.use(cors());
 app.use(express.json());
+app.use(fileUpload());
 app.use(express.static('images')); //http://localhost:5000/default/avatar.jpg
 app.use(requestLogger);
 app.use('/auth', authRouter);

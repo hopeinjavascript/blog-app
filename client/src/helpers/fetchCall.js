@@ -39,3 +39,19 @@ export async function fetchCall(url, opts = {}) {
     // return error;
   }
 }
+
+export async function uploadFile(file, filename) {
+  const formData = new FormData();
+  formData.append('uploadFile', file);
+  formData.append('filename', filename);
+
+  const res = await fetch(
+    `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}${global.BASE_ROUTE}/upload-file`,
+    {
+      method: 'POST',
+      body: formData,
+    }
+  );
+  const data = await res.json();
+  console.log('file upload', data);
+}

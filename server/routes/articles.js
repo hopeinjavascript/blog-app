@@ -14,6 +14,8 @@ router
     articlesControllers.createArticle
   );
 
+router.route('/upload-file').post(articlesControllers.uploadFile);
+
 router
   .route('/articles/:id')
   .get(

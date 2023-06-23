@@ -25,7 +25,7 @@ const deleteArticle = (req, _, next) => {
 };
 
 const updateArticle = (req, _, next) => {
-  const { action, title, content } = req.body;
+  const { action, title, coverImage, content } = req.body;
 
   if (!req.params.id)
     throwError('Invalid id param', HTTP_STATUS_CODES.BAD_REQUEST);
@@ -33,7 +33,7 @@ const updateArticle = (req, _, next) => {
   if (!action)
     throwError('"action" is required', HTTP_STATUS_CODES.BAD_REQUEST);
 
-  if (action === 'edit' && (!title || !content)) {
+  if (action === 'edit' && (!title || !coverImage || !content)) {
     throwError('title and content is required', HTTP_STATUS_CODES.BAD_REQUEST);
   }
 

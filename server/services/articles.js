@@ -132,10 +132,11 @@ const updateArticle = async (req, res) => {
   }
 
   if (action === 'edit') {
-    const { title, content } = req.body;
+    const { title, coverImage, content } = req.body;
+
     updatedArticle = await ArticleModel.findByIdAndUpdate(
       filter,
-      { title, content },
+      { title, coverImage, content },
       options
     );
   }

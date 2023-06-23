@@ -61,7 +61,10 @@ const SingleArticle = () => {
         </header>
 
         <div className="single-article-cover-img-container">
-          <img src={coverImage} alt="cover image" />
+          <img
+            src={`${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/${coverImage}`}
+            alt="cover image"
+          />
         </div>
 
         <div className="ql-snow">

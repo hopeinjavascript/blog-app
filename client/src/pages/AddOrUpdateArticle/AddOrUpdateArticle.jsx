@@ -9,6 +9,7 @@ import { formatString } from '../../helpers/generic';
 import { useArticleContext } from '../../context/articleContext';
 import { IoAdd } from 'react-icons/io5';
 import { FiEdit2 } from 'react-icons/fi';
+import { uploadFile } from '../../helpers/fetchCall';
 
 const modules = {
   toolbar: [
@@ -50,6 +51,8 @@ function AddOrUpdateArticle() {
   const [content, setContent] = useState(
     location?.state?.article?.content ?? ''
   );
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleTextChange = (content) =>
     content === '<p><br></p>' ? setContent('') : setContent(content);
@@ -62,17 +65,19 @@ function AddOrUpdateArticle() {
     refForm.current[0].focus();
   }, []);
 
-  function handleAdd(e) {
+  async function handleAdd(e) {
     e.preventDefault();
     // const category = refForm.current[0].value;
     // const topic = refForm.current[1].value;
 
-    debugger;
-    const title = refForm.current[0].value;
-    const coverImage = refForm.current[1].files[0]?.name;
+    const title = refForm.current[0]?.value;
+    const coverImage = Date.now() + '_' + file?.name;
     const articleContent = content;
 
-    if (!title || !coverImage || !articleContent) {
+    debugger;
+    // checking for file?.name, because if we check for coverImage then it will have date prepended to it so it will always pass the condition
+    // * We CANNOT programmatically set the value of input type file due to security reasons
+    if (!title || !file?.name || !articleContent) {
       return alert('Fill in all the fields');
     }
 
@@ -80,20 +85,30 @@ function AddOrUpdateArticle() {
       // category,
       // topic,
       title,
-      coverImage: 'http://unsplash.it/800/800',
+      coverImage,
       content: articleContent,
     };
 
+    // (1.) uploading file first
+    if (file) {
+      await uploadFile(file, coverImage);
+    }
+
+    // (2.) json payload
     handleAddArticle(blogObj);
     navigate(`${global.BASE_ROUTE}/articles`);
   }
 
-  function handleUpdate(e) {
+  async function handleUpdate(e) {
     e.preventDefault();
     const title = refForm.current[0]?.value;
+    const coverImage = Date.now() + '_' + file?.name;
     const articleContent = content;
 
-    if (!title || !articleContent) {
+    // checking for file?.name, because if we check for coverImage then it will have date prepended to it
+    // so it will always pass the condition
+    // * We CANNOT programmatically set the value of input type file due to security reasons
+    if (!title || !file?.name || !articleContent) {
       return alert('Fill in all the fields');
     }
 
@@ -101,45 +116,33 @@ function AddOrUpdateArticle() {
       // category,
       action: 'edit',
       title,
+      coverImage,
       content: articleContent,
     };
 
     debugger;
 
+    // (1.) uploading file first
+    if (file) {
+      await uploadFile(file, coverImage);
+    }
+
+    // (2.) json payload
     const articleId = location?.state?.article?._id;
     handleUpdateArticle(articleId, blogObj);
     navigate(
       `${global.BASE_ROUTE}/${formatString(location?.state?.article?.title)}`,
       { state: { articleId } }
     );
-    // const update = async () => {
-    //   setLoadingStatus('loading');
-
-    //   const resp = await fetchCall(
-    //     `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}${global.BASE_ROUTE}/articles/${location?.state?.article?._id}`,
-    //     {
-    //       method: 'PATCH',
-    //       data: blogObj,
-    //     }
-    //   );
-
-    //   setLoadingStatus('idle');
-
-    //   if (!resp?.success) {
-    //     return toast(`${resp?.message}`, { type: 'error' });
-    //   } else {
-    //     toast(`${resp?.message}`, { type: 'success' });
-    //     navigate(
-    //       `${global.BASE_ROUTE}/${formatString(
-    //         location?.state?.article?.title
-    //       )}`,
-    //       { state: { articleId: location?.state?.article?._id } }
-    //     );
-    //   }
-    // };
-
-    // update();
   }
+
+  const handlePreviewImg = (e) => {
+    e.preventDefault();
+    const file = refForm.current[1].files[0];
+    const previewUrl = URL.createObjectURL(file);
+    setFile(file);
+    setPreviewUrl(previewUrl);
+  };
 
   const isEditing = location?.pathname === `${global.BASE_ROUTE}/articles/edit`;
 
@@ -254,7 +257,14 @@ function AddOrUpdateArticle() {
                 Cover Image
                 <span className="required-field">*</span>
               </label>
-              <input id="cover-img" type="file" placeholder="Cover Image" />
+              <input
+                id="cover-img"
+                name="cover-img"
+                type="file"
+                accept=".png,.jpg,.jpeg,.svg"
+                placeholder="Cover Image"
+                onChange={handlePreviewImg}
+              />
             </div>
           </div>
 
@@ -285,6 +295,13 @@ function AddOrUpdateArticle() {
           className="preview__title"
           dangerouslySetInnerHTML={{ __html: title }}
         />
+
+        {previewUrl && (
+          <div className="single-article-cover-img-container">
+            <img src={previewUrl} alt="cover image" />
+          </div>
+        )}
+
         <div
           className="preview__content ql-editor"
           dangerouslySetInnerHTML={{ __html: content }}

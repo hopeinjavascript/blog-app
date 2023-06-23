@@ -39,12 +39,14 @@ function Articles() {
         <hr />
         {articles.map((article) => {
           const { _id, title, createdAt, coverImage, content, user } = article;
-          console.log({ _id, title, createdAt, coverImage, content, user });
-          debugger;
+
           return (
             <div key={_id} className="article">
               <div className="article-cover-img-container">
-                <img src={coverImage} alt="cover image" />
+                <img
+                  src={`${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/${coverImage}`}
+                  alt="cover image"
+                />
               </div>
               <div className="article-info">
                 <h2 className="article-title">

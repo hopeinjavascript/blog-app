@@ -124,12 +124,12 @@
   padding: 0rem 1rem;
   margin: 1rem 1rem;
   letter-spacing: 0.5px;
-  font-size: 1.25em;
+  font-size: 1.15em;
   color: gray;
 }
 
 .ql-container.ql-snow {
-  height: 200px;
+  min-height: 200px;
 }
 
 .ql-toolbar.ql-snow {
