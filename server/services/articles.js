@@ -4,7 +4,7 @@ import HTTP_STATUS_CODES from '../constants/httpStatusCodes.js';
 
 const getAllArticles = async (_, res) => {
   const articles = await ArticleModel.find({})
-    .populate('user', 'name email')
+    .populate('user', 'name username email isAdmin')
     .sort('-createdAt'); // (desc) - latest
 
   if (!articles.length)
@@ -18,7 +18,13 @@ const createArticle = async (req, res) => {
     user: req.user.id,
     ...req.body,
   });
-  const savedArticle = await newArticle.save();
+
+  let savedArticle = await newArticle.save();
+
+  savedArticle = await savedArticle.populate(
+    'user',
+    'name username email isAdmin'
+  );
 
   if (!savedArticle)
     throwError(
@@ -39,7 +45,7 @@ const getSingleArticle = async (req, res) => {
 
   const singleArticle = await ArticleModel.findById({ _id: id }).populate(
     'user',
-    'name email'
+    'name username email isAdmin'
   );
 
   // this won't even reach if ObjectId is incorrect, BUT let's keep for extra guard
@@ -133,6 +139,11 @@ const updateArticle = async (req, res) => {
       options
     );
   }
+
+  updatedArticle = await updatedArticle.populate(
+    'user',
+    'name username email isAdmin'
+  );
 
   setResponse(res)(
     HTTP_STATUS_CODES.SUCCESS,

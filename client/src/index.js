@@ -5,14 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import UserContextProvider from './context/userContext';
+import ArticleContextProvider from './context/articleContext';
+
+global.BASE_ROUTE = process.env.REACT_APP_BASE_ROUTE;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ArticleContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ArticleContextProvider>
     </UserContextProvider>
   </React.StrictMode>
 );

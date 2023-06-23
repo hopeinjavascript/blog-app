@@ -1,0 +1,14 @@
+.article-controls {
+  display: flex;
+  margin-top: 1rem;
+  gap: 2rem;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-like,
+.btn-publish {
+  background-color: transparent;
+  color: #131313;
+  padding: 0;
+}

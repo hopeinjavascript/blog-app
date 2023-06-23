@@ -5,7 +5,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+}
+
+/* .page-section with margin */
+.page-section-m {
+  margin: 5rem auto;
 }
 
 .fd-col {
@@ -55,13 +60,14 @@
 .form-btn {
   margin-top: 1.5rem;
   width: 100%;
-  font-size: 1em;
+  font-size: 1rem;
   text-transform: capitalize;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   letter-spacing: 0;
+  /* color: var(--color); */
 }
 
 .btn-icon-right {
@@ -88,4 +94,50 @@
 
 .extra-links a:hover {
   text-decoration: underline;
+}
+
+.required-field {
+  color: #ff6961;
+}
+
+.admin-badge {
+  /* margin-left: 0.5rem; */
+  padding: 0.25rem 0.35rem;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background-color: lightgray;
+  color: #131313;
+  background-color: rgba(73, 73, 255, 0.1);
+  color: rgba(73, 73, 255, 1);
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+/* overriding react-quill style*/
+.ql-snow .ql-editor blockquote {
+  padding: 0rem 1rem;
+  margin: 1rem 1rem;
+  letter-spacing: 0.5px;
+  font-size: 1.25em;
+  color: gray;
+}
+
+.ql-container.ql-snow {
+  height: 200px;
+}
+
+.ql-toolbar.ql-snow {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.ql-container.ql-snow {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }

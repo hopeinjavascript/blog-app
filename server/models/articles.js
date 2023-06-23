@@ -13,6 +13,11 @@ const ArticleSchema = new mongoose.Schema(
       required: [true, 'Description is required'],
     },
 
+    coverImage: {
+      type: String,
+      required: [true, 'Cover Image is required'],
+    },
+
     user: { type: ObjectId, ref: 'user', required: true },
 
     likes: [{ type: ObjectId, ref: 'user', default: [] }],

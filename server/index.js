@@ -22,12 +22,14 @@ app.get('/', (req, res) => {
   res.status(200).json({ msg: 'home route' });
 });
 
+console.log(process.env.BASE_ROUTE);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('images')); //http://localhost:5000/default/avatar.jpg
 app.use(requestLogger);
 app.use('/auth', authRouter);
-app.use('/blogs', articlesRouter);
+app.use(process.env.BASE_ROUTE, articlesRouter);
 app.use(responseHandler);
 app.use(errorHandler);
 

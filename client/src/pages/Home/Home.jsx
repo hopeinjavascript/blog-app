@@ -17,6 +17,9 @@ const Home = () => {
       {loggedInUser ? (
         <div className="home-wrapper welcome">
           <h1>{`Welcome home, ${loggedInUser.email}`}</h1>
+          <p>
+            <Link to={`${global.BASE_ROUTE}/articles`}>Articles</Link>
+          </p>
           <button type="button" className="btn-logout" onClick={handleLogout}>
             Logout
           </button>

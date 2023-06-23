@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledLoader = styled.div`
-  height: ${(props) => (props.height ? props.height : null)};
-  width: ${(props) => (props.width ? props.width : null)};
+  height: ${(props) => (props.height ? props.height : '50px')};
+  width: ${(props) => (props.width ? props.width : '50px')};
   /* background-color:eee; */
   border: ${(props) => (props.border ? props.border : '10px')} solid #f5f5f5;
   border-radius: 50%;

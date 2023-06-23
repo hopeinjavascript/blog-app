@@ -39,7 +39,7 @@ function verifyToken(token, type, req) {
   jwt.verify(token, secret, (err, payload) => {
     if (err)
       throwError(
-        'Error while decoding refresh token data',
+        `Error while decoding refresh token data - ${err.message}`,
         HTTP_STATUS_CODES.FORBIDDEN,
         err
       );

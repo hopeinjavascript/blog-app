@@ -8,7 +8,6 @@ import { useUserContext } from '../../context/userContext';
 import { toast } from 'react-toastify';
 import { fetchCall } from '../../helpers/fetchCall';
 import { setLocalStorage } from '../../helpers/generic';
-// import { toast } from 'react-toastify';
 
 const Login = () => {
   const [loadingStatus, setLoadingStatus] = useState('idle');
@@ -72,7 +71,7 @@ const Login = () => {
                 name="email"
                 id="email"
                 autoComplete="off"
-                defaultValue="abc@gmail.com"
+                defaultValue="akshaysood@gmail.com"
               />
             </div>
           </div>
@@ -86,7 +85,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 id="password"
-                defaultValue="abc12345"
+                defaultValue="akshaysood"
               />
             </div>
           </div>

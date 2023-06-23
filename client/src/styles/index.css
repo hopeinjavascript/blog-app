@@ -36,11 +36,11 @@ button,
   border-radius: 5px;
 }
 
-ul,
+/* ul,
 li {
   list-style-type: none;
   list-style: none;
-}
+} */
 
 a {
   text-decoration: none;
@@ -52,7 +52,8 @@ a {
 }
 
 input,
-textarea {
+textarea,
+select {
   /* height: 2rem; */
   padding: 0.5rem 0.5rem;
   border: 0;
@@ -70,7 +71,7 @@ select {
 }
 
 svg {
-  margin-right: 0.5rem;
+  /* margin-right: 0.5rem; */
   font-size: 1.3rem;
 }
 

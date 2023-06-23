@@ -11,12 +11,14 @@ export async function fetchCall(url, opts = {}) {
         Authorization: `Bearer ${getAccessToken()}`,
       }),
   };
-  const body = { body: JSON.stringify(opts.data) };
+
+  // const body = { body: JSON.stringify(opts.data) };
 
   const OPTIONS = {
     method: opts.method || 'GET',
     headers,
-    ...(opts.method !== 'GET' && body),
+    ...(opts.method !== 'GET' &&
+      opts.data && { body: JSON.stringify(opts.data) }),
     // ...opts,
   };
 

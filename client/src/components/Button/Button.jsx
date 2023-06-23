@@ -2,12 +2,17 @@ import React from 'react';
 import Loader from '../Loader/Loader';
 
 const Button = ({
+  type,
   status,
   btnText,
   btnIcon: ButtonIcon,
   btnLoadingText,
   btnSuccessText,
   btnSuccessIcon: ButtonSuccessIcon,
+  disabled,
+  clickHandler = () => {},
+  className,
+  styles,
 }) => {
   let elem = null;
 
@@ -36,11 +41,17 @@ const Button = ({
 
   return (
     <button
-      type="submit"
-      className="btn btn-submit form-btn"
+      type={type ?? 'submit'}
+      className={`btn btn-submit form-btn ${className ?? ''}`}
       style={{
-        cursor: status === 'loading' ? 'wait' : 'pointer',
+        cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+        ...styles,
       }}
+      disabled={disabled ?? status == 'loading'}
+      onClick={
+        // ['', 'idle'].includes(status) ? (e) => clickHandler(e) : () => {} // TODO: check the condition
+        (e) => clickHandler(e)
+      } // dont apply clickHandler when status is loading and succeeded // Additional guard clause
     >
       {elem}
     </button>
