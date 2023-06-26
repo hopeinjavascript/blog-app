@@ -11,6 +11,7 @@ import cors from 'cors';
 import fileUpload from 'express-fileupload';
 
 import authRouter from './routes/auth.js';
+import usersRouter from './routes/users.js';
 import articlesRouter from './routes/articles.js';
 
 import responseHandler from './middlewares/responseHandler.js';
@@ -32,6 +33,7 @@ app.use(fileUpload());
 app.use(express.static('images')); //http://localhost:5000/default/avatar.jpg
 app.use(requestLogger);
 app.use('/auth', authRouter);
+app.use('/users', usersRouter);
 app.use(process.env.BASE_ROUTE, articlesRouter);
 app.use(responseHandler);
 app.use(errorHandler);

@@ -18,11 +18,6 @@
   margin: 0 auto;
 }
 
-.add-article-form .here-link {
-  text-decoration: underline;
-  color: rgb(70, 130, 180);
-}
-
 .add-article-form select,
 .add-article-form input,
 .add-article-form textarea {

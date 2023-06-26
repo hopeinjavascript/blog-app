@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-.page-section {
+.page-section,
+.page-section-m {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,17 +120,19 @@
   background-color: #ccc;
 }
 
-/* overriding react-quill style*/
+.cta-link {
+  text-decoration: underline;
+  color: rgb(70, 130, 180);
+}
+
+/*========================== overriding react-quill style ==========================*/
+
 .ql-snow .ql-editor blockquote {
   padding: 0rem 1rem;
   margin: 1rem 1rem;
   letter-spacing: 0.5px;
   font-size: 1.15em;
   color: gray;
-}
-
-.ql-container.ql-snow {
-  min-height: 200px;
 }
 
 .ql-toolbar.ql-snow {
@@ -140,4 +143,10 @@
 .ql-container.ql-snow {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  min-height: 200px;
+}
+
+.ql-container.ql-snow .ql-editor {
+  /* initially to click on the editor */
+  min-height: 200px;
 }

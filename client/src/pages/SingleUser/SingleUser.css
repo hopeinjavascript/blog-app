@@ -1,0 +1,94 @@
+.single-user-wrapper {
+  width: 80%;
+}
+
+.single-user-wrapper div {
+  /* border: 1px solid #ddd; */
+  border-radius: 8px;
+}
+.banner {
+  background-color: lightgray;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.personal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1.5rem;
+
+  width: 300px;
+  border: 1px solid #ddd;
+  padding: 1rem;
+}
+
+.profile-picture {
+  --size: 175px;
+  width: var(--size);
+  height: var(--size);
+  aspect-ratio: 1;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  /* border: 6px solid black; */
+}
+
+.profile {
+  /* font-weight: 450; */
+}
+
+.follow-list {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.85em;
+}
+
+.follow-list p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.follow-list p span {
+  color: gray;
+}
+
+.btn-follow {
+  /* width: 100%; */
+  /* justify-content: center; */
+}
+
+.blog-list-container {
+  padding: 1rem;
+  flex: 1;
+  border: 1px solid #ddd;
+}
+
+.blog-list-container .heading {
+  margin-bottom: 1rem;
+  /* font-size: 2rem; */
+}
+
+.created-blog .blog-list,
+.saved-blog .blog-list {
+  max-height: 500px;
+  overflow-y: auto;
+}

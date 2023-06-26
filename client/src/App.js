@@ -9,6 +9,8 @@ import Toast from './components/Toast/Toast';
 import Articles from './pages/Articles/Articles';
 import SingleArticle from './pages/SingleArticle/SingleArticle';
 import AddOrUpdateArticle from './pages/AddOrUpdateArticle/AddOrUpdateArticle';
+import SingleUser from './pages/SingleUser/SingleUser';
+import Users from './pages/Users/Users';
 
 function App() {
   return (
@@ -33,10 +35,10 @@ function App() {
           path={`${global.BASE_ROUTE}/articles/edit`}
           element={<AddOrUpdateArticle />}
         />
-        {/* <Route
-          path={`${global.BASE_ROUTE}/users/:username`}
-          element={<AddOrUpdateArticle />}
-        /> */}
+
+        {/* users */}
+        <Route path={`/users`} element={<Users />} />
+        <Route path={`/users/:username`} element={<SingleUser />} />
       </Routes>
     </div>
   );

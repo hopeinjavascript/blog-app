@@ -211,7 +211,7 @@ function AddOrUpdateArticle() {
                 You can add a new topic{' '}
                 <Link
                   to={`${global.BASE_ROUTE}/addTopic`}
-                  className="here-link"
+                  className="cta-link"
                 >
                   here.
                 </Link>

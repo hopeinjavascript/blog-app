@@ -8,6 +8,7 @@ import ArticleControls from '../../components/ArticleControls/ArticleControls';
 import { formatArticleDate } from '../../helpers/generic';
 import SocialLinks from '../../components/SocialLinks/SocialLinks';
 import { useArticleContext } from '../../context/articleContext';
+import UserProfileLink from '../../components/UserProfileLink/UserProfileLink';
 
 const SingleArticle = () => {
   const location = useLocation();
@@ -41,13 +42,13 @@ const SingleArticle = () => {
           <h1 className="single-article-title">{title}</h1>
           <div className="single-article-info">
             <img className="img" src="//unsplash.it/210/230" alt="" />
-            <Link to={`/users/${user?.username}`}>
+            <div>
               <p className="name">
-                <span>{user?.name}</span>
+                <UserProfileLink user={user} />
                 {user?.isAdmin && <span className="admin-badge">Admin</span>}
               </p>
               <p className="article-date">{formatArticleDate(createdAt)}</p>
-            </Link>
+            </div>
           </div>
 
           {/* // TODO: change className */}

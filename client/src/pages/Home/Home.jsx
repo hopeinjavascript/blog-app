@@ -20,6 +20,9 @@ const Home = () => {
           <p>
             <Link to={`${global.BASE_ROUTE}/articles`}>Articles</Link>
           </p>
+          <p>
+            <Link to={`/users`}>Users</Link>
+          </p>
           <button type="button" className="btn-logout" onClick={handleLogout}>
             Logout
           </button>
