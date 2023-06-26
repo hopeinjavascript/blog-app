@@ -96,7 +96,9 @@ const ArticleContextProvider = ({ children }) => {
   };
 
   const handleUpdateArticle = async (articleId, payload) => {
-    if (!['like', 'unlike', 'publish'].includes(payload.action)) {
+    if (
+      !['like', 'unlike', 'publish', 'save', 'unsave'].includes(payload.action)
+    ) {
       dispatch({ type: 'LOADING' });
     }
 
@@ -121,6 +123,7 @@ const ArticleContextProvider = ({ children }) => {
       dispatch({ type: 'UPDATE_ARTICLE', payload: { article: resp.data } });
     }
   };
+
   const val = {
     ...state,
     dispatch,

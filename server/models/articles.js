@@ -22,6 +22,8 @@ const ArticleSchema = new mongoose.Schema(
 
     likes: [{ type: ObjectId, ref: 'user', default: [] }],
 
+    bookmarks: [{ type: ObjectId, ref: 'user', default: [] }],
+
     isPublish: {
       type: Boolean,
       default: true,

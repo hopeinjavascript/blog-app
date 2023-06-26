@@ -7,7 +7,8 @@
 .btn-edit,
 .btn-delete,
 .btn-like,
-.btn-publish {
+.btn-publish,
+.btn-bookmark {
   background-color: transparent;
   color: #131313;
   padding: 0;

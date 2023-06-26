@@ -131,6 +131,26 @@ const updateArticle = async (req, res) => {
     );
   }
 
+  if (action === 'save') {
+    updatedArticle = await ArticleModel.findByIdAndUpdate(
+      filter,
+      {
+        $push: { bookmarks: req.user.id },
+      },
+      options
+    );
+  }
+
+  if (action === 'unsave') {
+    updatedArticle = await ArticleModel.findByIdAndUpdate(
+      filter,
+      {
+        $pull: { bookmarks: req.user.id },
+      },
+      options
+    );
+  }
+
   if (action === 'edit') {
     const { title, coverImage, content } = req.body;
 

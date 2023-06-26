@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { FiEdit2 } from 'react-icons/fi';
 import { IoCloudOfflineOutline, IoCloudOutline } from 'react-icons/io5';
+import Bookmark from '../Bookmark/Bookmark';
 
 const ArticleControls = ({ article, handleDelete, handleUpdate }) => {
   const { loggedInUser } = useUserContext();
@@ -49,6 +50,11 @@ const ArticleControls = ({ article, handleDelete, handleUpdate }) => {
       {editButton}
       {deleteButton}
       {publishButton}
+      <Bookmark
+        id={article?._id}
+        bookmarks={article?.bookmarks}
+        handleUpdate={handleUpdate}
+      />
       <Likes
         id={article?._id}
         likes={article?.likes}
