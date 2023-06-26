@@ -5,6 +5,7 @@ import ArticleControls from '../../components/ArticleControls/ArticleControls';
 import { formatArticleDate, formatString } from '../../helpers/generic';
 import { useArticleContext } from '../../context/articleContext';
 import UserProfileLink from '../UserProfileLink/UserProfileLink';
+import Badge from '../Badge/Badge';
 
 const ArticleList = ({ articleList }) => {
   const { articles, handleDeleteArticle, handleUpdateArticle } =
@@ -54,7 +55,7 @@ const ArticleList = ({ articleList }) => {
                 <UserProfileLink user={user}>
                   by <em>{user?.name}</em>
                 </UserProfileLink>
-                {user?.isAdmin && <span className="admin-badge ">Admin</span>}
+                <Badge user={user} />
                 <span className="dot"></span>
                 <span className="article-date">
                   {formatArticleDate(createdAt)}
