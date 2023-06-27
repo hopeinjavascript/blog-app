@@ -19,7 +19,7 @@ const getAllArticlesByUserId = async (req, res) => {
 
   const articles = await ArticleModel.find({ user: id }).populate(
     'user',
-    'name username email isAdmin'
+    'name username email isAdmin roleId'
   );
 
   if (!articles.length)

@@ -1,0 +1,13 @@
+.owner-badge {
+  /* owner badge will have bg-color and color set in the .badge common class */
+}
+
+.admin-badge {
+  background-color: rgb(14, 134, 66, 0.1);
+  color: rgb(14, 134, 66, 1);
+}
+
+.guest-badge {
+  background-color: rgb(128, 128, 128, 0.1);
+  color: rgb(128, 128, 128, 1);
+}

@@ -9,6 +9,7 @@ import { formatArticleDate } from '../../helpers/generic';
 import SocialLinks from '../../components/SocialLinks/SocialLinks';
 import { useArticleContext } from '../../context/articleContext';
 import UserProfileLink from '../../components/UserProfileLink/UserProfileLink';
+import Badge from '../../components/Badge/Badge';
 
 const SingleArticle = () => {
   const location = useLocation();
@@ -45,7 +46,7 @@ const SingleArticle = () => {
             <div>
               <p className="name">
                 <UserProfileLink user={user} />
-                {user?.isAdmin && <span className="admin-badge">Admin</span>}
+                <Badge user={user} />
               </p>
               <p className="article-date">{formatArticleDate(createdAt)}</p>
             </div>
