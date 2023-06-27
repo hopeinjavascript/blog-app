@@ -14,10 +14,22 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+//articles written by user
 const getAllArticlesByUserId = async (req, res, next) => {
   res.serviceName = 'getAllArticlesByUserId';
   try {
     await userServices.getAllArticlesByUserId(req, res);
+    next();
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+const getAllArticlesSavedByUserId = async (req, res, next) => {
+  res.serviceName = 'getAllArticlesSavedByUserId';
+  try {
+    await userServices.getAllArticlesSavedByUserId(req, res);
     next();
   } catch (error) {
     console.error(error);
@@ -83,6 +95,7 @@ const updateUser = async (req, res, next) => {
 export default {
   getAllUsers,
   getAllArticlesByUserId,
+  getAllArticlesSavedByUserId,
   uploadFile,
   getSingleUser,
   deleteUser,

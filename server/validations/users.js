@@ -15,6 +15,13 @@ const getAllArticlesByUserId = (req, _, next) => {
   next();
 };
 
+const getAllArticlesSavedByUserId = (req, _, next) => {
+  if (!req.params.id)
+    throwError('Invalid id param', HTTP_STATUS_CODES.BAD_REQUEST);
+
+  next();
+};
+
 const deleteUser = (req, _, next) => {
   if (!req.params.id)
     throwError('Invalid id param', HTTP_STATUS_CODES.BAD_REQUEST);
@@ -41,6 +48,7 @@ const updateUser = (req, _, next) => {
 export default {
   getSingleUser,
   getAllArticlesByUserId,
+  getAllArticlesSavedByUserId,
   deleteUser,
   updateUser,
 };

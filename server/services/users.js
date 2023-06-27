@@ -27,7 +27,25 @@ const getAllArticlesByUserId = async (req, res) => {
 
   setResponse(res)(
     HTTP_STATUS_CODES.SUCCESS,
-    `All articles for user id - ${id}`,
+    `All articles written by user id - ${id}`,
+    articles
+  );
+};
+
+const getAllArticlesSavedByUserId = async (req, res) => {
+  const { id } = req.params;
+
+  const articles = await ArticleModel.find({ bookmarks: { $in: id } }).populate(
+    'user',
+    'name username email isAdmin'
+  );
+
+  if (!articles.length)
+    setResponse(res)(HTTP_STATUS_CODES.SUCCESS, 'No articles to display');
+
+  setResponse(res)(
+    HTTP_STATUS_CODES.SUCCESS,
+    `All articles saved by user id - ${id}`,
     articles
   );
 };
@@ -90,6 +108,7 @@ const updateUser = async (req, res) => {
 export default {
   getAllUsers,
   getAllArticlesByUserId,
+  getAllArticlesSavedByUserId,
   getSingleUser,
   deleteUser,
   updateUser,

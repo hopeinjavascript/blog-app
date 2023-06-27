@@ -14,6 +14,13 @@ router
     usersControllers.getAllArticlesByUserId
   );
 
+router
+  .route('/:id/articles/saved')
+  .get(
+    usersValidations.getAllArticlesSavedByUserId,
+    usersControllers.getAllArticlesSavedByUserId
+  );
+
 router.route('/upload-file').post(usersControllers.uploadFile);
 
 router

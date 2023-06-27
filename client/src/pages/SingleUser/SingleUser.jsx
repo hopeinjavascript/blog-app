@@ -45,7 +45,7 @@ const SingleUser = () => {
     if (!resp?.success) {
       toast(`${resp?.message}`, { type: 'error' });
     } else {
-      console.log(resp.data);
+      console.log('fetchArticlesSavedByUser', resp.data);
       setArticlesSavedByUser(resp.data);
     }
   }
@@ -53,7 +53,7 @@ const SingleUser = () => {
   useEffect(() => {
     fetchUser();
     fetchArticlesWrittenByUser();
-    // fetchArticlesSavedByUser(); // yet to write the api
+    fetchArticlesSavedByUser(); // yet to write the api
     return () => {};
   }, [location?.state?.userId]);
 
