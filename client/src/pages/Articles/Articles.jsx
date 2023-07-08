@@ -28,9 +28,9 @@ function Articles() {
         <header>
           <h1 className="page-header">articles</h1>
           <Link to={`${global.BASE_ROUTE}/articles/add`}>
-            <button type="button">
-              <IoAdd className="btn-icon-left" />
+            <button type="button" className="btn-primary">
               Create Post
+              <IoAdd className="btn-icon-right" />
             </button>
           </Link>
         </header>

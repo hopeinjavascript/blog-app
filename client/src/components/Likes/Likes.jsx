@@ -21,7 +21,7 @@ const Likes = ({ id, likes, handleUpdate }) => {
           />
         )}
         <span className="dot"></span>
-        <span className="likes">{likes?.length} Likes</span>
+        <span className="likes">{likes?.length}</span>
       </button>
     </>
   );

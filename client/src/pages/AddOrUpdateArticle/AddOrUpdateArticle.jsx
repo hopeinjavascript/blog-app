@@ -155,7 +155,7 @@ function AddOrUpdateArticle() {
       btnSuccessText="Updated"
       btnSuccessIcon={BsCheck2}
       clickHandler={handleUpdate}
-      className="add-article-form-btn"
+      className="btn-primary add-article-form-btn"
     />
   ) : (
     <Button
@@ -166,7 +166,7 @@ function AddOrUpdateArticle() {
       btnSuccessText="Created"
       btnSuccessIcon={BsCheck2}
       clickHandler={handleAdd}
-      className="add-article-form-btn"
+      className="btn-primary add-article-form-btn"
     />
   );
 
