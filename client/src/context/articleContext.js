@@ -74,6 +74,14 @@ const ArticleContextProvider = ({ children }) => {
   };
 
   const handleDeleteArticle = async (id) => {
+    const deleteConfirmation = window.confirm(
+      `Are you sure you want to delete this article?`
+    );
+
+    if (!deleteConfirmation) {
+      return;
+    }
+
     dispatch({ type: 'LOADING' });
 
     const resp = await fetchCall(
