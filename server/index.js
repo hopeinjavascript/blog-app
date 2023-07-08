@@ -13,6 +13,7 @@ import fileUpload from 'express-fileupload';
 import authRouter from './routes/auth.js';
 import usersRouter from './routes/users.js';
 import articlesRouter from './routes/articles.js';
+import commentsRouter from './routes/comments.js';
 
 import responseHandler from './middlewares/responseHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
@@ -35,6 +36,7 @@ app.use(requestLogger);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use(process.env.BASE_ROUTE, articlesRouter);
+app.use(process.env.BASE_ROUTE, commentsRouter);
 app.use(responseHandler);
 app.use(errorHandler);
 
