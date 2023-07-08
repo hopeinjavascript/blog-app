@@ -71,6 +71,11 @@
   /* color: var(--color); */
 }
 
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--color);
+}
+
 .btn-icon-right {
   margin-left: 0.5rem;
 }

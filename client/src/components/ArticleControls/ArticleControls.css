@@ -1,5 +1,6 @@
 .article-controls {
   display: flex;
+  /* align-items: center; */
   margin-top: 1rem;
   gap: 2rem;
 }
@@ -8,7 +9,8 @@
 .btn-delete,
 .btn-like,
 .btn-publish,
-.btn-bookmark {
+.btn-bookmark,
+.btn-reply {
   background-color: transparent;
   color: #131313;
   padding: 0;

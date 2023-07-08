@@ -1,0 +1,25 @@
+.comment-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.comment-controls .count {
+  height: 18px;
+  min-width: 18px;
+  /* border-radius: 50%; */
+  border-radius: 10px; /* 9px is 50% - so it will show rounded for 1-digit*/
+  padding: 0 0.35rem;
+  display: inline-block;
+  background-color: #434343;
+  color: #f5f5f5;
+  /* position: absolute; */
+  left: -5px;
+  top: -5px;
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.btn-reply {
+  gap: 0.5rem;
+}

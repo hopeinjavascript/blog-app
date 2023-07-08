@@ -82,3 +82,11 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.comments-wrapper {
+  width: 60%;
+}
+
+.comments-wrapper .heading {
+  margin-bottom: 2.5rem;
+}

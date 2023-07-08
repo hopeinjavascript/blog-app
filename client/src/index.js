@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import UserContextProvider from './context/userContext';
 import ArticleContextProvider from './context/articleContext';
+import CommentContextProvider from './context/commentContext';
 
 global.BASE_ROUTE = process.env.REACT_APP_BASE_ROUTE;
 
@@ -14,9 +15,11 @@ root.render(
   <React.StrictMode>
     <UserContextProvider>
       <ArticleContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <CommentContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </CommentContextProvider>
       </ArticleContextProvider>
     </UserContextProvider>
   </React.StrictMode>

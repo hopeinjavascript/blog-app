@@ -1,0 +1,45 @@
+.reply-thread {
+  margin-left: 3rem;
+  /* border: 1px solid #ccc; */
+  position: relative;
+}
+
+.reply-thread::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  bottom: 0;
+  /* comment below css rule to disable showing thread effect */
+  border: 1px solid #eee;
+  /* height: calc(100%); */
+  height: calc(100% - 1.5rem);
+}
+
+.reply-count {
+  margin: 0rem 0 1rem 1rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #cbcbcb;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+}
+
+/* .reply-count:after,
+.reply-count:before {
+  content: '';
+  position: relative;
+  display: inline-block;
+  height: 1px;
+  width: 25px;
+  background-color: #cbcbcb;
+  margin: 0 0.25rem;
+} */
+
+.replies {
+  margin-top: 0;
+  z-index: 1;
+  position: relative; /* for z-index */
+}

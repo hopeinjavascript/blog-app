@@ -1,0 +1,43 @@
+.comment-form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  /* align-items: center; */
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-picture-img {
+  border-radius: 50%;
+  /* aspect-ratio */
+  height: 35px;
+  align-self: flex-start;
+}
+
+.profile-picture:hover {
+  outline: 1.5px solid #cbcbcb;
+  outline-offset: 3px;
+}
+
+.comment-input {
+  line-height: 1.35rem;
+  padding: 0.5rem;
+  outline: 0;
+  border-radius: 5px;
+  flex: 1;
+  border: 2px solid #eee;
+}
+
+.cta-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.icon-btn {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  gap: 5px;
+}
