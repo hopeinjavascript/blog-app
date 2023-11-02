@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+const { ObjectId } = mongoose.Schema.Types;
 
 const UserSchema = mongoose.Schema(
   {
@@ -37,6 +38,8 @@ const UserSchema = mongoose.Schema(
       type: Number,
       default: 3, // 3 = others, 2 = admin, 1 = owner
     },
+    followers: [{ type: ObjectId, ref: 'user', default: [] }],
+    following: [{ type: ObjectId, ref: 'user', default: [] }],
   },
   {
     timestamps: true,

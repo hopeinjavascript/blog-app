@@ -10,7 +10,7 @@ import { IoBookmarkOutline } from 'react-icons/io5';
 const SingleUser = () => {
   // const [user, setUser] = useState({});
 
-  const { user, fetchUser } = useUserContext();
+  const { user, fetchUser, loggedInUser, handleUpdateUser } = useUserContext();
   const {
     fetchArticlesWrittenByUser,
     fetchArticlesSavedByUser,
@@ -65,9 +65,24 @@ const SingleUser = () => {
                 <span>Articles</span>
               </div>
             </div>
-            <button type="button" className="btn-follow">
-              {/* TODO: check for follow/unfollow */}
-              Follow
+            <button
+              type="button"
+              className="btn-follow"
+              onClick={() =>
+                // functionality working fine, BUT state not updating - moved "user" to context
+                // TODO: create followers and following page to display users
+                // User component is yet to be finalized/made
+                handleUpdateUser(userId, {
+                  action: user?.followers?.includes(loggedInUser?._id)
+                    ? 'unfollow'
+                    : 'follow',
+                })
+              }
+              disabled={loggedInUser?._id === user._id}
+            >
+              {user?.followers?.includes(loggedInUser?._id)
+                ? 'UnFollow'
+                : 'Follow'}
             </button>
           </div>
           <div className="user-stats">

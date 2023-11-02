@@ -91,12 +91,57 @@ const deleteUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
+  const { action } = req.body;
 
-  const updatedUser = await UserModel.findByIdAndUpdate(
-    { _id: id },
-    { title, coverImage, content },
-    { new: true }
-  );
+  const filter = {
+    _id: id,
+  };
+  const options = {
+    new: true,
+  };
+
+  let updatedUser;
+  if (action === 'follow') {
+    updatedUser = await UserModel.findByIdAndUpdate(
+      filter,
+      {
+        $push: { followers: req.user.id },
+      },
+      options
+    );
+    await UserModel.findByIdAndUpdate(
+      { _id: req.user.id },
+      {
+        $push: { following: req.user.id },
+      },
+      options
+    );
+  }
+
+  if (action === 'unfollow') {
+    updatedUser = await UserModel.findByIdAndUpdate(
+      filter,
+      {
+        $pull: { followers: req.user.id },
+      },
+      options
+    );
+    await UserModel.findByIdAndUpdate(
+      { _id: req.user.id },
+      {
+        $pull: { following: req.user.id },
+      },
+      options
+    );
+  }
+
+  if (action === 'edit') {
+    updatedUser = await UserModel.findByIdAndUpdate(
+      filter,
+      { title, coverImage, content },
+      options
+    );
+  }
 
   setResponse(res)(
     HTTP_STATUS_CODES.SUCCESS,
