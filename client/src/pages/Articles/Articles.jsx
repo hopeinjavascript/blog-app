@@ -6,8 +6,8 @@ import { useArticleContext } from '../../context/articleContext';
 import { IoAdd } from 'react-icons/io5';
 import ArticleList from '../../components/ArticleList/ArticleList';
 
-function Articles() {
-  const { loading } = useArticleContext();
+function Articles({ pageHeader, articleList }) {
+  const { loading, articles } = useArticleContext();
 
   // for getting fresh data from backend in desc order
   // useEffect(() => {
@@ -23,10 +23,10 @@ function Articles() {
     );
 
   return (
-    <section className="page-section page-section-m">
+    <section className="page-section page-section-p">
       <div className="articles-wrapper">
         <header>
-          <h1 className="page-header">articles</h1>
+          <h1 className="page-header">{pageHeader ?? 'articles'}</h1>
           <Link to={`${global.BASE_ROUTE}/articles/add`}>
             <button type="button" className="btn-primary">
               Create Post
@@ -35,7 +35,21 @@ function Articles() {
           </Link>
         </header>
         <hr />
-        <ArticleList />
+        {(articleList ?? articles).length ? (
+          <ArticleList list={articleList ?? articles} />
+        ) : (
+          <>
+            <p>
+              You have not written any article.{' '}
+              <Link
+                to={`${global.BASE_ROUTE}/articles/add`}
+                className="cta-link"
+              >
+                Write.
+              </Link>
+            </p>
+          </>
+        )}
       </div>
     </section>
   );

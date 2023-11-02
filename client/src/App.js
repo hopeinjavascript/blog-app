@@ -11,6 +11,8 @@ import SingleArticle from './pages/SingleArticle/SingleArticle';
 import AddOrUpdateArticle from './pages/AddOrUpdateArticle/AddOrUpdateArticle';
 import SingleUser from './pages/SingleUser/SingleUser';
 import Users from './pages/Users/Users';
+import WrittenArticleList from './pages/WrittenArticleList/WrittenArticleList';
+import SavedArticleList from './pages/SavedArticleList/SavedArticleList';
 
 function App() {
   return (
@@ -39,6 +41,14 @@ function App() {
         {/* users */}
         <Route path={`/users`} element={<Users />} />
         <Route path={`/users/:username`} element={<SingleUser />} />
+        <Route
+          path={`${global.BASE_ROUTE}/users/:userId/articles/written`}
+          element={<WrittenArticleList />}
+        />
+        <Route
+          path={`${global.BASE_ROUTE}/users/:userId/articles/saved`}
+          element={<SavedArticleList />}
+        />
       </Routes>
     </div>
   );

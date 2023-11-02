@@ -22,7 +22,7 @@
 .user-profile {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .personal-info {
@@ -61,13 +61,13 @@
   font-size: 0.85em;
 }
 
-.follow-list p {
+.follow-list div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.follow-list p span {
+.follow-list div span {
   color: gray;
 }
 
@@ -91,4 +91,49 @@
 .saved-blog .blog-list {
   max-height: 500px;
   overflow-y: auto;
+}
+
+.user-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.user-stats > div {
+  min-width: 200px;
+  box-shadow: 0px 0px 1px #252525;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fcfcfc;
+
+  /* flex-grow: 1; */
+  flex-shrink: 1;
+  flex-basis: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .user-stats > div:last-child {
+  flex-grow: 0.12;
+} */
+
+.user-stats .user-stats-icon svg {
+  font-size: 3rem;
+  color: rgb(187, 186, 186);
+}
+
+.user-stats .count {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.user-stats .label {
+  color: gray;
 }

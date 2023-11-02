@@ -1,61 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './SingleUser.css';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchCall } from '../../helpers/fetchCall';
-import { toast } from 'react-toastify';
-import ArticleList from '../../components/ArticleList/ArticleList';
+import { useArticleContext } from '../../context/articleContext';
+import { useUserContext } from '../../context/userContext';
+import { FaRegComment } from 'react-icons/fa';
+import { SlLike, SlNote } from 'react-icons/sl';
+import { IoBookmarkOutline } from 'react-icons/io5';
 
 const SingleUser = () => {
-  const [user, setUser] = useState({});
-  const [articlesWrittenByUser, setArticlesWrittenByUser] = useState([]);
-  const [articlesSavedByUser, setArticlesSavedByUser] = useState([]);
+  // const [user, setUser] = useState({});
+
+  const { user, fetchUser } = useUserContext();
+  const {
+    fetchArticlesWrittenByUser,
+    fetchArticlesSavedByUser,
+    articlesWrittenByUser,
+    articlesSavedByUser,
+  } = useArticleContext();
+
   const location = useLocation();
-
-  async function fetchUser() {
-    const resp = await fetchCall(
-      `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/users/${location?.state?.userId}`
-    );
-
-    if (!resp?.success) {
-      toast(`${resp?.message}`, { type: 'error' });
-    } else {
-      console.log(resp.data);
-      setUser(resp.data);
-    }
-  }
-
-  async function fetchArticlesWrittenByUser() {
-    const resp = await fetchCall(
-      `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/users/${location?.state?.userId}/articles`
-    );
-
-    if (!resp?.success) {
-      toast(`${resp?.message}`, { type: 'error' });
-    } else {
-      console.log(resp.data);
-      setArticlesWrittenByUser(resp.data);
-    }
-  }
-
-  async function fetchArticlesSavedByUser() {
-    const resp = await fetchCall(
-      `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/users/${location?.state?.userId}/articles/saved`
-    );
-
-    if (!resp?.success) {
-      toast(`${resp?.message}`, { type: 'error' });
-    } else {
-      console.log('fetchArticlesSavedByUser', resp.data);
-      setArticlesSavedByUser(resp.data);
-    }
-  }
+  const userId = location?.state?.userId;
 
   useEffect(() => {
-    fetchUser();
-    fetchArticlesWrittenByUser();
-    fetchArticlesSavedByUser(); // yet to write the api
+    fetchUser(userId);
+    // TODO: get count of all the stats in one query from backend. This is very inefficient!
+    fetchArticlesWrittenByUser(userId);
+    fetchArticlesSavedByUser(userId);
     return () => {};
-  }, [location?.state?.userId]);
+  }, [userId]);
 
   return (
     <section className="page-section-m">
@@ -65,7 +37,7 @@ const SingleUser = () => {
             // src="http://localhost:5000/user-profile-picture/Dragon-Ball-Z-banner.jpg"
             src="//unsplash.it/1200"
             alt="banner"
-            srcset=""
+            srcSet=""
           />
         </div>
         <div className="user-profile">
@@ -80,64 +52,73 @@ const SingleUser = () => {
             <h2 className="name">{user.name}</h2>
             <p className="profile">Senior Full Stack Developer</p>
             <div className="follow-list">
-              <p className="followers">
+              <div className="followers">
                 <h2>{user?.followers?.length ?? 0}</h2>
                 <span>Followers</span>
-              </p>
-              <p className="following">
+              </div>
+              <div className="following">
                 <h2>{user?.following?.length ?? 0}</h2>
                 <span>Following</span>
-              </p>
-              <p className="articles-written">
+              </div>
+              <div className="articles-written">
                 <h2>{articlesWrittenByUser.length}</h2>
                 <span>Articles</span>
-              </p>
+              </div>
             </div>
             <button type="button" className="btn-follow">
               {/* TODO: check for follow/unfollow */}
               Follow
             </button>
           </div>
-          <div className="blog-list-container">
-            <div className="created-blog">
-              <h1 className="heading">Your blog</h1>
-              <div className="blog-list">
-                {articlesWrittenByUser.length ? (
-                  <ArticleList articleList={articlesWrittenByUser} />
-                ) : (
-                  <>
-                    <p>
-                      You have not written any article.{' '}
-                      <Link
-                        to={`${global.BASE_ROUTE}/articles/add`}
-                        className="cta-link"
-                      >
-                        Write.
-                      </Link>
-                    </p>
-                  </>
-                )}
+          <div className="user-stats">
+            <div>
+              <div className="user-stats-icon">
+                <SlNote />
+              </div>
+              <div className="">
+                <Link
+                  to={`${global.BASE_ROUTE}/users/${userId}/articles/written`}
+                  state={{ userId }}
+                >
+                  <p className="count">{articlesWrittenByUser.length}</p>
+                </Link>
+                <p className="label">Written</p>
               </div>
             </div>
-            <hr />
-            <div className="saved-blog">
-              <h1 className="heading">Your saved blog</h1>
-              <div className="blog-list">
-                {articlesSavedByUser.length ? (
-                  <ArticleList articleList={articlesSavedByUser} />
-                ) : (
-                  <>
-                    <p>
-                      You don't have any saved articles.{' '}
-                      <Link
-                        to={`${global.BASE_ROUTE}/articles`}
-                        className="cta-link"
-                      >
-                        Explore.
-                      </Link>
-                    </p>
-                  </>
-                )}
+            <div>
+              <div className="user-stats-icon">
+                <IoBookmarkOutline />
+              </div>
+              <div className="">
+                <Link
+                  to={`${global.BASE_ROUTE}/users/${userId}/articles/saved`}
+                  state={{ userId }}
+                >
+                  <p className="count">{articlesSavedByUser.length}</p>
+                </Link>
+                <p className="label">Saved</p>
+              </div>
+            </div>
+            <div>
+              <div className="user-stats-icon">
+                <FaRegComment />
+              </div>
+              <div>
+                <Link to="">
+                  <p className="count">56</p>
+                </Link>
+                <p className="label">comments</p>
+              </div>
+            </div>
+            <div>
+              <div className="user-stats-icon">
+                <SlLike />
+              </div>
+              <div>
+                <Link to="">
+                  <p className="count">193</p>
+                </Link>
+                <p className="label">likes</p>
               </div>
             </div>
           </div>

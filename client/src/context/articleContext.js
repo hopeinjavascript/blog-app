@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 import { fetchCall } from '../helpers/fetchCall';
 import articleReducer from '../reducers/article';
 import { toast } from 'react-toastify';
@@ -9,6 +15,8 @@ const initialState = {
   loading: false, // idle | succeeded | loading
   articles: [],
   article: {},
+  articlesWrittenByUser: [],
+  articlesSavedByUser: [],
 };
 
 const ArticleContextProvider = ({ children }) => {
@@ -110,8 +118,6 @@ const ArticleContextProvider = ({ children }) => {
       dispatch({ type: 'LOADING' });
     }
 
-    debugger;
-
     const resp = await fetchCall(
       `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}${global.BASE_ROUTE}/articles/${articleId}`,
       {
@@ -132,7 +138,40 @@ const ArticleContextProvider = ({ children }) => {
     }
   };
 
-  const val = {
+  // should these be in user context?
+  async function fetchArticlesWrittenByUser(userId) {
+    const resp = await fetchCall(
+      `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/users/${userId}/articles`
+    );
+
+    if (!resp?.success) {
+      toast(`${resp?.message}`, { type: 'error' });
+      dispatch({ type: 'NOT_LOADING' });
+    } else {
+      dispatch({
+        type: 'FETCH_ARTICLES_WRITTEN_BY_USER',
+        payload: { articles: resp.data },
+      });
+    }
+  }
+
+  async function fetchArticlesSavedByUser(userId) {
+    const resp = await fetchCall(
+      `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/users/${userId}/articles/saved`
+    );
+
+    if (!resp?.success) {
+      toast(`${resp?.message}`, { type: 'error' });
+      dispatch({ type: 'NOT_LOADING' });
+    } else {
+      dispatch({
+        type: 'FETCH_ARTICLES_SAVED_BY_USER',
+        payload: { articles: resp.data },
+      });
+    }
+  }
+
+  const val = useMemo(() => ({
     ...state,
     dispatch,
     fetchArticles,
@@ -140,7 +179,10 @@ const ArticleContextProvider = ({ children }) => {
     handleAddArticle,
     handleDeleteArticle,
     handleUpdateArticle,
-  };
+    fetchArticlesWrittenByUser,
+    fetchArticlesSavedByUser,
+  }));
+
   return (
     <ArticleContext.Provider value={val}>{children}</ArticleContext.Provider>
   );

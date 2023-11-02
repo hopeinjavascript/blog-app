@@ -7,15 +7,13 @@ import { useArticleContext } from '../../context/articleContext';
 import UserProfileLink from '../UserProfileLink/UserProfileLink';
 import Badge from '../Badge/Badge';
 
-const ArticleList = ({ articleList }) => {
-  const { articles, handleDeleteArticle, handleUpdateArticle } =
-    useArticleContext();
+const ArticleList = ({ list = [] }) => {
+  const { handleDeleteArticle, handleUpdateArticle } = useArticleContext();
 
   return (
     <div>
-      {(articleList || articles).map((article) => {
+      {list.map((article) => {
         const { _id, title, createdAt, coverImage, content, user } = article;
-        console.log(user);
 
         return (
           <div key={_id} className="article">

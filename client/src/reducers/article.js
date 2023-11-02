@@ -56,10 +56,44 @@ const articleReducer = (state, action) => {
           : article
       ),
 
+      // doing this to keep in sync with the current state and for better user experience
+      // because if 'articles' property is getting updated(which holds ALL the articles) then "articlesWrittenByUser" should also get updated
+      articlesWrittenByUser: state.articlesWrittenByUser.map((article) =>
+        article._id === action.payload.article._id
+          ? action.payload.article
+          : article
+      ),
+      // doing this to keep in sync with the current state and for better user experience
+      // because if 'articles' property is getting updated(which holds ALL the articles) then "articlesSavedByUser" should also get updated
+      articlesSavedByUser: state.articlesSavedByUser.map((article) =>
+        article._id === action.payload.article._id
+          ? action.payload.article
+          : article
+      ),
+
       // for every "action" in req.body we are sending updated document in the response from server
       // so as per pt (1.) we are specifically updating this to reflect changes in SingleArticle page for all the "actions" made
       // * Ideally below should ONLY be updated when single article is fetched
       article: action.payload.article ?? state.article,
+    };
+  }
+
+  // should these be in user context?
+  if (action.type === 'FETCH_ARTICLES_WRITTEN_BY_USER') {
+    console.log('FETCH_ARTICLES_WRITTEN_BY_USER', action);
+    return {
+      ...state,
+      loading: false,
+      articlesWrittenByUser: action.payload.articles,
+    };
+  }
+
+  if (action.type === 'FETCH_ARTICLES_SAVED_BY_USER') {
+    console.log('FETCH_ARTICLES_SAVED_BY_USER', action);
+    return {
+      ...state,
+      loading: false,
+      articlesSavedByUser: action.payload.articles,
     };
   }
 
