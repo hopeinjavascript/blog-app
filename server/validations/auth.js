@@ -20,4 +20,31 @@ const signup = (req, _, next) => {
   next();
 };
 
-export default { login, signup };
+const forgotPassword = (req, _, next) => {
+  const { email } = req.body;
+
+  if (!email) throwError('Email is required', HTTP_STATUS_CODES.BAD_REQUEST);
+
+  next();
+};
+
+const resetPassword = (req, _, next) => {
+  const { token } = req.params;
+  const { password, confirmPassword } = req.body;
+
+  if (!token)
+    throwError(
+      'Reset Token is required',
+      HTTP_STATUS_CODES.STATUS_CODE_BAD_REQUEST
+    );
+
+  if (!password || !confirmPassword)
+    throwError('All fields are required', HTTP_STATUS_CODES.BAD_REQUEST);
+
+  if (password !== confirmPassword)
+    throwError(`Password doesn't match`, HTTP_STATUS_CODES.BAD_REQUEST);
+
+  next();
+};
+
+export default { login, signup, forgotPassword, resetPassword };

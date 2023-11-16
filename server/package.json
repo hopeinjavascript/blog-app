@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node %npm_package_main%",
-    "dev": "nodemon  %npm_package_main%",
+    "dev": "nodemon %npm_package_main%",
     "pm2": "pm2 start ecosystem.config.js",
     "pm2D": "pm2 stop all && pm2 delete all && pm2 save && pm2 l"
   },
@@ -31,7 +31,8 @@
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.3.0"
+    "mongoose": "^7.3.0",
+    "nodemailer": "^6.9.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

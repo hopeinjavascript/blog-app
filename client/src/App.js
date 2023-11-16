@@ -13,6 +13,8 @@ import SingleUser from './pages/SingleUser/SingleUser';
 import Users from './pages/Users/Users';
 import WrittenArticleList from './pages/WrittenArticleList/WrittenArticleList';
 import SavedArticleList from './pages/SavedArticleList/SavedArticleList';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
         {/* articles */}
         <Route path={`${global.BASE_ROUTE}/articles`} element={<Articles />} />

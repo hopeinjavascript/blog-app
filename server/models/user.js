@@ -37,6 +37,12 @@ const UserSchema = mongoose.Schema(
       type: Number,
       default: 3, // 3 = others, 2 = admin, 1 = owner
     },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordTokenExpiration: {
+      type: Number,
+    },
   },
   {
     timestamps: true,

@@ -3,6 +3,8 @@ import { createToken } from '../helpers/auth.js';
 import bcrypt from 'bcryptjs';
 import UserModel from '../models/user.js';
 import HTTP_STATUS_CODES from '../constants/httpStatusCodes.js';
+import sendEmail from '../utils/sendEmail.js';
+import crypto from 'crypto';
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -59,4 +61,72 @@ const signup = async (req, res) => {
   setResponse(res)(HTTP_STATUS_CODES.CREATED, 'Sign Up Successful', savedUser);
 };
 
-export default { login, signup };
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  const user = await UserModel.findOne({ email });
+
+  if (!user) throwError('Invalid Email', 404);
+
+  // create a link to send
+  const resetToken = crypto.randomBytes(20).toString('hex');
+  user.resetPasswordToken = resetToken;
+  user.resetPasswordTokenExpiration = Date.now() * 3600000; // valid for one hour
+  const savedUser = await user.save();
+
+  if (!savedUser) throwError('Error in creating reset link');
+
+  const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+  const subject = 'Password Reset';
+  const emailMessage = `
+      <h1>You requested for password reset</h1>
+      <p>Click the <a href=${resetLink} clicktracking=off>link</a> to reset.</p>
+      <strong> Valid for one hour </strong>
+      `;
+
+  try {
+    console.log({ emailMessage });
+    sendEmail(user.email, subject, emailMessage);
+    setResponse(res)(
+      HTTP_STATUS_CODES.STATUS_CODE_OK,
+      'Please check your email for password reset link!'
+    );
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordTokenExpiration = undefined;
+    await user.save();
+
+    throwError(
+      'Error in sending email',
+      HTTP_STATUS_CODES.STATUS_CODE_INTERNAL_SERVER_ERROR,
+      error
+    );
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  const user = await UserModel.findOne({
+    resetPasswordToken: token,
+    resetPasswordTokenExpiration: { $gt: Date.now() },
+  });
+
+  if (!user)
+    throwError('Reset password token is incorrect or might have expired.');
+
+  // hash new password before saving
+  const hashPassword = await bcrypt.hash(password, 12);
+  user.password = hashPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordTokenExpiration = undefined;
+  await user.save();
+
+  setResponse(res)(
+    HTTP_STATUS_CODES.STATUS_CODE_CREATED,
+    'Password reset successful.'
+  );
+};
+
+export default { login, signup, forgotPassword, resetPassword };

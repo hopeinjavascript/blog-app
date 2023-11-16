@@ -44,10 +44,12 @@ const Button = ({
       type={type ?? 'submit'}
       className={`btn btn-submit form-btn ${className ?? ''}`}
       style={{
-        cursor: status === 'loading' ? 'not-allowed' : 'pointer',
+        cursor: ['loading', 'succeeded'].includes(status)
+          ? 'not-allowed'
+          : 'pointer',
         ...styles,
       }}
-      disabled={disabled ?? status == 'loading'}
+      disabled={disabled ?? ['loading', 'succeeded'].includes(status)}
       onClick={
         // ['', 'idle'].includes(status) ? (e) => clickHandler(e) : () => {} // TODO: check the condition
         (e) => clickHandler(e)

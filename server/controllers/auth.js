@@ -22,4 +22,26 @@ const signup = async (req, res, next) => {
   }
 };
 
-export default { login, signup };
+const forgotPassword = async (req, res, next) => {
+  res.serviceName = 'forgotPassword';
+  try {
+    await authServices.forgotPassword(req, res);
+    next();
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  res.serviceName = 'resetPassword';
+  try {
+    await authServices.resetPassword(req, res);
+    next();
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+export default { login, signup, forgotPassword, resetPassword };
