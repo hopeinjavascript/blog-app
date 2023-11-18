@@ -13,6 +13,7 @@ import SingleUser from './pages/SingleUser/SingleUser';
 import Users from './pages/Users/Users';
 import WrittenArticleList from './pages/WrittenArticleList/WrittenArticleList';
 import SavedArticleList from './pages/SavedArticleList/SavedArticleList';
+import Nav from './components/Nav/Nav';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <Toast />
+      <Nav />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
