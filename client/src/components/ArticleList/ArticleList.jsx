@@ -32,8 +32,7 @@ const ArticleList = ({ list = [] }) => {
                   }}
                   state={{
                     articleId: _id,
-                  }}
-                >
+                  }}>
                   {title.length > 30 ? `${title.slice(0, 30)}...` : title}
                 </Link>
               </h2>
@@ -64,6 +63,7 @@ const ArticleList = ({ list = [] }) => {
                 article={article}
                 handleDelete={handleDeleteArticle}
                 handleUpdate={handleUpdateArticle}
+                author={user} // user who created the article
               />
             </div>
           </div>

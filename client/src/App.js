@@ -1,6 +1,7 @@
 import './styles/css-variables.css';
 import './styles/common.css';
 import './styles/index.css';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
@@ -16,8 +17,42 @@ import SavedArticleList from './pages/SavedArticleList/SavedArticleList';
 import Nav from './components/Nav/Nav';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import { socket } from './socket';
+import { useUserContext } from './context/userContext';
 
 function App() {
+  const { loggedInUser } = useUserContext();
+
+  useEffect(() => {
+    function onConnect() {
+      console.log('onConnect - ', socket.id, socket.connected);
+    }
+
+    function onDisconnect() {
+      console.log('disconnected - ', socket.connected, socket.id);
+    }
+
+    if (loggedInUser && Object.keys(loggedInUser).length) {
+      console.log({ loggedInUser });
+      socket.emit('notify', {
+        socketId: socket.id,
+        loggedInUser: loggedInUser, // TODO: it is sending whole user object from local Storage. CHANGE!
+      });
+    }
+
+    socket.on('connect_error', (err) => {
+      console.log(`connect_error due to ${err.message}`);
+    });
+
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+    };
+  }, [loggedInUser]);
+
   return (
     <div className="App">
       <Toast />

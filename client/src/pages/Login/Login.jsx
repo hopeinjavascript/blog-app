@@ -8,6 +8,7 @@ import { useUserContext } from '../../context/userContext';
 import { toast } from 'react-toastify';
 import { fetchCall } from '../../helpers/fetchCall';
 import { setLocalStorage } from '../../helpers/generic';
+import { socket } from '../../socket';
 
 const Login = () => {
   const [loadingStatus, setLoadingStatus] = useState('idle');
@@ -48,6 +49,13 @@ const Login = () => {
       return toast(`${resp?.message}`, { type: 'error' });
     } else {
       toast(`${resp?.message}`, { type: 'success' });
+
+      // emit "welcome"
+      socket.emit('welcome', {
+        socketId: socket.id,
+        loggedInUser: resp?.data,
+      });
+
       setLocalStorage('token', resp?.data);
       setLoggedInUser(resp?.data);
       // setLoadingStatus('succeeded');
@@ -101,8 +109,8 @@ const Login = () => {
           <hr />
 
           <div className="extra-links">
-            {/* <Link to="/forgotPassword">Forgot password?</Link> */}
-            {/* <br /> */}
+            <Link to="/forgot-password">Forgot password?</Link>
+            <br />
             <Link to="/signup">Don't have an account?</Link>
           </div>
         </form>

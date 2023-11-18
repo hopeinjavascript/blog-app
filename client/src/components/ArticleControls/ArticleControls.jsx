@@ -9,7 +9,7 @@ import { FiEdit2 } from 'react-icons/fi';
 import { IoCloudOfflineOutline, IoCloudOutline } from 'react-icons/io5';
 import Bookmark from '../Bookmark/Bookmark';
 
-const ArticleControls = ({ article, handleDelete, handleUpdate }) => {
+const ArticleControls = ({ article, handleDelete, handleUpdate, author }) => {
   const { loggedInUser } = useUserContext();
 
   let deleteButton, editButton, publishButton;
@@ -34,8 +34,7 @@ const ArticleControls = ({ article, handleDelete, handleUpdate }) => {
     publishButton = (
       <button
         className="btn-publish"
-        onClick={() => handleUpdate(article?._id, { action: 'publish' })}
-      >
+        onClick={() => handleUpdate(article?._id, { action: 'publish' })}>
         {!article?.isPublish ? (
           <IoCloudOutline className="cloud" />
         ) : (
@@ -59,6 +58,7 @@ const ArticleControls = ({ article, handleDelete, handleUpdate }) => {
         id={article?._id}
         likes={article?.likes}
         handleUpdate={handleUpdate}
+        author={author}
       />
     </div>
   );
