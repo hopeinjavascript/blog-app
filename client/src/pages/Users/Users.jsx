@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Users.css';
 import { fetchCall } from '../../helpers/fetchCall';
 import { toast } from 'react-toastify';
-import UserProfileLink from '../../components/UserProfileLink/UserProfileLink';
+import Table from '../../components/Table/Table';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -27,14 +27,28 @@ const Users = () => {
   }, []);
 
   return (
-    <section className="page-section fd-col">
-      {users.map((user) => {
-        return (
-          <h1 key={user?._id}>
-            <UserProfileLink user={user} text={user?.name} />
-          </h1>
-        );
-      })}
+    <section className="page-section">
+      <div className="users-wrapper">
+        <header>
+          <h1 className="page-header">users</h1>
+
+          {/* <button type="button" className="btn-primary">
+            Add User
+            <IoAdd className="btn-icon-right" />
+          </button> */}
+        </header>
+        <hr />
+        {users?.length ? (
+          <Table
+            data={users}
+            config={{
+              columns: ['_id', 'name', 'username', 'email', 'roleId'], // TODO: add support for column name aliasing
+              // extraColumns: ['action'],
+              // extraData: [{ action: 'Delete' }],
+            }}
+          />
+        ) : null}
+      </div>
     </section>
   );
 };

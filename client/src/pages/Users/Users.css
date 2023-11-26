@@ -1,0 +1,14 @@
+.users-wrapper {
+  /* margin: 5rem auto; */
+  width: 80%;
+}
+
+.users-wrapper header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-header {
+  text-transform: capitalize;
+}
