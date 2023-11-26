@@ -18,6 +18,25 @@ nav,
   align-items: center;
 }
 
+.search-bar {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  min-width: 300px;
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
+  padding-left: 0.25rem;
+}
+
+.search-bar:focus-within {
+  border: 2px solid rgb(73, 73, 255);
+}
+
+.search-bar svg {
+  font-size: 2rem;
+  color: #aaa;
+}
+
 .bell {
   height: 50px;
   width: 50px;
@@ -114,4 +133,9 @@ nav,
 
 .notifications .notification-not-read {
   font-weight: 600;
+}
+
+.btn-logout {
+  color: #f5f5f5;
+  background-color: tomato;
 }
