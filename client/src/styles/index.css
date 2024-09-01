@@ -72,11 +72,16 @@ svg {
   font-size: 1.3rem;
 }
 
-hr {
+hr,
+.hr-large {
   margin: 1rem 0;
   height: 0.5px;
   border: none;
   background-color: #ccc;
+}
+
+.hr-large {
+  margin: 4rem 0;
 }
 
 ::placeholder {
