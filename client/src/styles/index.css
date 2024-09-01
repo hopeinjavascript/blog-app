@@ -33,6 +33,11 @@ button,
   border-radius: 5px;
 }
 
+button:disabled,
+.btn:disabled {
+  cursor: not-allowed;
+}
+
 /* ul,
 li {
   list-style-type: none;

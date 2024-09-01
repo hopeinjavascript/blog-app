@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+const { ObjectId } = mongoose.Schema.Types;
 
 const UserSchema = mongoose.Schema(
   {
@@ -43,6 +44,8 @@ const UserSchema = mongoose.Schema(
     resetPasswordTokenExpiration: {
       type: Number,
     },
+    followers: [{ type: ObjectId, ref: 'user', default: [] }],
+    following: [{ type: ObjectId, ref: 'user', default: [] }],
   },
   {
     timestamps: true,

@@ -48,12 +48,33 @@ const UserContextProvider = ({ children }) => {
     }
   }
 
+  const handleUpdateUser = async (userId, payload) => {
+    dispatch({ type: 'LOADING' });
+
+    const resp = await fetchCall(
+      `${process.env.REACT_APP_BLOG_APP_BACKEND_URL}/users/${userId}`,
+      {
+        method: 'PATCH',
+        data: payload,
+      }
+    );
+
+    if (!resp?.success) {
+      toast(`${resp?.message}`, { type: 'error' });
+      dispatch({ type: 'NOT_LOADING' });
+    } else {
+      toast(`${resp?.message}`, { type: 'success' });
+      dispatch({ type: 'UPDATE_USER', payload: { user: resp.data } });
+    }
+  };
+
   const val = useMemo(() => ({
     loggedInUser,
     setLoggedInUser,
     ...state,
     dispatch,
     fetchUser,
+    handleUpdateUser,
   }));
   return <UserContext.Provider value={val}>{children}</UserContext.Provider>;
 };

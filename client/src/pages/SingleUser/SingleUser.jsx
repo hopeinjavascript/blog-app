@@ -10,7 +10,7 @@ import { IoBookmarkOutline } from 'react-icons/io5';
 const SingleUser = () => {
   // const [user, setUser] = useState({});
 
-  const { user, fetchUser } = useUserContext();
+  const { user, fetchUser, loggedInUser, handleUpdateUser } = useUserContext();
   const {
     fetchArticlesWrittenByUser,
     fetchArticlesSavedByUser,
@@ -43,11 +43,7 @@ const SingleUser = () => {
         <div className="user-profile">
           <div className="personal-info">
             <div className="profile-picture">
-              {/* <img src={user.profilePicture} alt="profile picture" /> */}
-              <img
-                src="http://localhost:5000/user-profile-picture/Dragon-Ball-Z.jpeg"
-                alt="profile picture"
-              />
+              <img src={user.profilePicture} alt="avatar" />
             </div>
             <h2 className="name">{user.name}</h2>
             <p className="profile">Senior Full Stack Developer</p>
@@ -65,41 +61,53 @@ const SingleUser = () => {
                 <span>Articles</span>
               </div>
             </div>
-            <button type="button" className="btn-follow">
-              {/* TODO: check for follow/unfollow */}
-              Follow
+            <button
+              type="button"
+              className="btn-follow"
+              onClick={() =>
+                // functionality working fine, BUT state not updating - moved "user" to context
+                // TODO: create followers and following page to display users
+                // User component is yet to be finalized/made
+                handleUpdateUser(userId, {
+                  action: user?.followers?.includes(loggedInUser?._id)
+                    ? 'unfollow'
+                    : 'follow',
+                })
+              }
+              disabled={loggedInUser?._id === user._id}>
+              {user?.followers?.includes(loggedInUser?._id)
+                ? 'UnFollow'
+                : 'Follow'}
             </button>
           </div>
           <div className="user-stats">
-            <div>
+            <div className="user-stats-card">
               <div className="user-stats-icon">
                 <SlNote />
               </div>
               <div className="">
                 <Link
                   to={`${global.BASE_ROUTE}/users/${userId}/articles/written`}
-                  state={{ userId }}
-                >
+                  state={{ userId }}>
                   <p className="count">{articlesWrittenByUser.length}</p>
                 </Link>
                 <p className="label">Written</p>
               </div>
             </div>
-            <div>
+            <div className="user-stats-card">
               <div className="user-stats-icon">
                 <IoBookmarkOutline />
               </div>
               <div className="">
                 <Link
                   to={`${global.BASE_ROUTE}/users/${userId}/articles/saved`}
-                  state={{ userId }}
-                >
+                  state={{ userId }}>
                   <p className="count">{articlesSavedByUser.length}</p>
                 </Link>
                 <p className="label">Saved</p>
               </div>
             </div>
-            <div>
+            <div className="user-stats-card">
               <div className="user-stats-icon">
                 <FaRegComment />
               </div>
@@ -110,7 +118,7 @@ const SingleUser = () => {
                 <p className="label">comments</p>
               </div>
             </div>
-            <div>
+            <div className="user-stats-card">
               <div className="user-stats-icon">
                 <SlLike />
               </div>

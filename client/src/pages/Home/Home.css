@@ -29,17 +29,15 @@
   content: '';
   position: absolute;
   right: -100px;
+  bottom: 10px;
   height: 7px;
   width: 7px;
   border-radius: 50%;
   background-color: #232323;
-  animation: dot 2000ms ease forwards;
+  animation: dot 1000ms ease forwards;
 }
 
 @keyframes dot {
-  50% {
-    right: -10px;
-  }
   100% {
     right: -10px;
     bottom: 10px;
