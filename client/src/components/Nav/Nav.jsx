@@ -27,7 +27,7 @@ const Nav = () => {
       </Link>
 
       {loggedInUser ? (
-        <div className="home-wrapper">
+        <div className="nav-links">
           <Link to={`${global.BASE_ROUTE}/articles`}>Articles</Link>
           <Link to={`/users`}>Users</Link>
           <UserProfileLink user={loggedInUser}>
@@ -40,7 +40,7 @@ const Nav = () => {
           </button>
         </div>
       ) : (
-        <div className="home-wrapper">
+        <div className="nav-links">
           <Link to={`${global.BASE_ROUTE}/articles`}>Articles</Link>
           <Link to="/login">
             <button type="button">Login</button>
